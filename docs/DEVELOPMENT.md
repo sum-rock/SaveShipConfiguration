@@ -46,6 +46,26 @@ temporary directory. AssemblyChecks inspects installed API signatures and
 Harmony injections without patching or executing Unity. Its optional SE checks
 run when Shipyard Expansion is installed at its usual plugin path.
 
+## Manual local installation
+
+Close Sailwind, then run from the repository root:
+
+```sh
+./scripts/install-local.sh
+./scripts/install-local.sh "/path/to/Sailwind"
+```
+
+The optional argument selects another game installation. Like MoreSailwindSails'
+installer, this script requires an existing Release DLL and BepInEx plugins
+directory, rebuilds Release, then installs only the DLL into
+`BepInEx/plugins/SaveShipConfiguration/`. It resolves the repository location
+independently of the calling directory and forwards the selected game directory
+to the build as `SailwindDir`.
+
+This is a manual maintainer workflow. Agents must never execute files from
+`scripts/` or use it as their working directory. Script validation is limited to
+syntax and static review; installation has not been exercised in-game.
+
 ## Implementation decisions
 
 - Presets are independent version-1 JSON documents with generated GUID
