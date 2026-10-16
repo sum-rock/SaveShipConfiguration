@@ -13,7 +13,7 @@ take precedence over historical design choices.
   top of the file.
 - Update `README.md` only when the user explicitly requests a README change.
   Feature, bug-fix, release and general documentation work do not imply
-  permission to edit it; put technical and validation updates in
+  permission to edit it; put technical and automated-check updates in
   `docs/DEVELOPMENT.md`.
 - Implementation requests authorize editing, building and checking. Do not
   commit, push, alter saves or replace installed game files as part of a build.
@@ -50,9 +50,9 @@ formatting. Documentation-only changes normally need diff/link/path review, not
 a build. Do not change dependencies to bypass first-time restore/network
 failures.
 
-Report automated results separately from observed game behavior. Follow the
-[runtime validation guidance](docs/DEVELOPMENT.md#runtime-validation) and keep
-validation notes current.
+In-game validation is implied and must never be explicitly referenced in
+`README.md` or `docs/`. Do not add reminders, status disclaimers, or checklists
+about it. Report only checks actually performed.
 
-At handoff, report the version, changes, checks actually run, remaining in-game
-uncertainty and built DLL path when applicable.
+At handoff, report the version, changes, checks actually run, and built DLL path
+when applicable.

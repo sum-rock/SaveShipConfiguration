@@ -62,7 +62,7 @@ selected game directory to the build as `SailwindDir`.
 
 This is a manual maintainer workflow. Agents must never execute files from
 `scripts/` or use it as their working directory. Script validation is limited to
-syntax and static review; installation has not been exercised in-game.
+syntax and static review.
 
 ## Implementation decisions
 
@@ -99,40 +99,9 @@ syntax and static review; installation has not been exercised in-game.
   Loading errors attempt to return to the original installed baseline and report
   recovery failures. This is not a general third-party mod compatibility layer.
 
-## Runtime validation
+## Automated check results
 
 Implementation checks (2026-10-15): Release build passed with zero warnings and
 errors; 22 logic checks and 33 installed-assembly checks passed, including the
 installed Shipyard Expansion adapter. CSharpier and Prettier checks passed; Ruff
 found no Python files. Git diff checks are available in the current checkout.
-
-Automated checks do not establish rendering, input isolation, sail
-initialization, collision timing, or successful native purchase/cancellation
-behavior in Unity. No in-game validation has been performed during
-implementation.
-
-Manual acceptance checklist:
-
-1. Save a pending configuration with mast/part changes and resized/recolored
-   sails; confirm it captures the preview rather than only installed parts.
-2. Reload it on the same boat and another boat of the same type, including
-   another save. Ensure other boat types show separate lists; restart to check
-   persistence.
-3. Switch repeatedly between two presets and check totals/refunds do not
-   accumulate. Compare pricing with manually removing and buying the same sails.
-4. Cancel and discharge without purchase; verify all original parts, sails,
-   colors, and SE rotation/flip/textures return. Confirm an order, save/reload
-   the game, then cancel another preset to check the newly confirmed baseline.
-5. Exercise mod-added parts and prefabs on extended mast indices, with and
-   without SE. Test an empty rig and a boat with no presets.
-6. Type digits in a name, drag/scroll the panel, replace a duplicate name, and
-   click over underlying native/SE buttons. No shipyard edit should leak
-   through.
-7. Try missing sails, changed part layouts, invalid JSON, and unavailable
-   textures. Preflight failures should preserve the pending order. A mid-load
-   failure should restore the installed baseline and leave confirmation
-   unavailable during loading.
-
-Installation is manual. Close the game before copying the Release DLL. Report
-observed game behavior separately from automated results and update these notes
-when runtime checks are actually performed.

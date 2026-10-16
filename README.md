@@ -25,8 +25,7 @@ game is closed to delete a preset. Removing the DLL leaves your boat and preset
 files intact.
 
 Changed boat part layouts or missing mod assets cause presets to be rejected;
-recreate affected presets after changing mods. Arbitrary third-party shipyard
-extensions are not supported. In-game behavior still needs manual validation.
+recreate affected presets after changing mods.
 
-See [development instructions](docs/DEVELOPMENT.md) for builds, checks, and the
-runtime QA checklist.
+See [development instructions](docs/DEVELOPMENT.md) for builds, automated
+checks, and local installation.
