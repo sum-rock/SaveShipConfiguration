@@ -73,6 +73,13 @@ syntax and static review.
   file in the same directory.
 - Save reads pending `BoatPartsOrder.orderedOptions` and live sail components;
   invoking native GetData would miss pending parts and trigger SE side effects.
+- **Clear rigging** removes sails, stays, shrouds, masts, then bowsprits, in
+  that order. Sails use native refund handling; each subsequent group selects
+  the native `(no ...)` options and refreshes the pending order before the next
+  group. Installed boat assets use name-based rigging identities across multiple
+  categories, so categories and option indices are not hardcoded. Parts without
+  a removal option remain and are reported. Other pending changes are preserved;
+  native order validation, confirmation, and cancellation still apply.
 - Load validates structure, boat layout, mast/prefab identities, colors, sail
   counts, and optional textures before changing the order. It cancels to the
   native installed baseline, removes sails through native refund logic, assigns
@@ -102,6 +109,6 @@ syntax and static review.
 ## Automated check results
 
 Implementation checks (2026-10-15): Release build passed with zero warnings and
-errors; 22 logic checks and 33 installed-assembly checks passed, including the
-installed Shipyard Expansion adapter. CSharpier and Prettier checks passed; Ruff
-found no Python files. Git diff checks are available in the current checkout.
+errors; 22 logic checks and 45 installed-assembly checks passed, including
+rigging group classification and the installed Shipyard Expansion adapter.
+CSharpier, Prettier, and Git diff checks passed; Ruff found no Python files.

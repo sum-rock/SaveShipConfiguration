@@ -92,6 +92,29 @@ internal static class Program
             }
         }
         var native = Assembly.LoadFrom(Path.Combine(dirs[0], "Assembly-CSharp.dll"));
+        var riggingGroup = plugin
+            .GetType("SaveShipConfiguration.ShipyardIntegration.RiggingClearer", throwOnError: true)
+            .GetMethod("Group", All);
+        foreach (
+            var item in new[]
+            {
+                ("foremast forestay", 0),
+                ("topmast mainstay 1", 0),
+                ("main mast 1 shrouds 2", 1),
+                ("main mast shrowds", 1),
+                ("(no topmast)", 2),
+                ("MIZZEN MAST 2", 2),
+                ("long bowsprit", 3),
+                ("bowsprint", 3),
+                ("canvas cover", -1),
+                ("full cabin", -1),
+            }
+        )
+            Check(
+                (int)riggingGroup.Invoke(obj: null, parameters: new object[] { item.Item1 })
+                    == item.Item2,
+                "rigging removal group: " + item.Item1
+            );
         foreach (
             var item in new[]
             {
@@ -101,6 +124,8 @@ internal static class Program
                 ("ShipyardPartsInstaller", "GetOrderError", 0),
                 ("ShipyardSailInstaller", "AddNewSail", 1),
                 ("ShipyardSailInstaller", "DestroySail", 2),
+                ("ShipyardSailInstaller", "SelectMast", 1),
+                ("ShipyardUI", "UpdateSailsCountText", 0),
                 ("ShipyardSailInstaller", "RecheckAllSailsCols", 0),
                 ("ShipyardSailInstaller", "DoRecheck", 0),
                 ("Sail", "LoadScale", 2),
