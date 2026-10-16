@@ -139,6 +139,8 @@ namespace SaveShipConfiguration
                         focusName = true;
                         message = "";
                     });
+                if (GUILayout.Button("Clear rigging"))
+                    Guard(() => message = RiggingClearer.Clear(shipyard: current));
                 scroll = GUILayout.BeginScrollView(scroll, GUILayout.ExpandHeight(true));
                 if (presets.Count == 0)
                     GUILayout.Label("No saved configurations for this boat.");
