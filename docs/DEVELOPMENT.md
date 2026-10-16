@@ -2,17 +2,16 @@
 
 ## Tooling and repository workflow
 
-Version: **0.1.0**. Plugin GUID: `com.august.saveshipconfiguration`. The root
-AGENTS.md is copied verbatim from MoreSailwindSails at the user's request; its
-original heading and sail-specific guidance remain. Applicable workflow rules
-are unchanged. This project uses LogicChecks and AssemblyChecks as its two
-suites.
+Version: **0.1.0**. Plugin GUID: `com.august.saveshipconfiguration`. See
+[AGENTS.md](../AGENTS.md) for repository workflow. This project uses LogicChecks
+and AssemblyChecks as its two check suites.
 
-The pinned Nix flake, CSharpier 1.3.0 manifest, formatting configuration, and
-pre-commit hooks come from MoreSailwindSails. The shell supplies .NET 8, ILSpy,
-Python, Ruff, Prettier, and pre-commit. The plugin targets netstandard2.0 and
-references installed BepInEx 5, Harmony, and Unity/game assemblies. No
-proprietary assemblies or extracted assets belong in this repository.
+The pinned Nix shell supplies .NET 8, ILSpy, Python, Ruff, Prettier, and
+pre-commit. The .NET tool manifest pins CSharpier 1.3.0, and pre-commit hooks
+apply the repository's formatting configuration. The plugin targets
+netstandard2.0 and references installed BepInEx 5, Harmony, and Unity/game
+assemblies. No proprietary assemblies or extracted assets belong in this
+repository.
 
 ## Build and automated checks
 
@@ -31,8 +30,8 @@ git diff --check
 ```
 
 `path:.` also works when this workspace lacks usable Git metadata. In a regular
-Git checkout, `nix develop` is equivalent; the copied pre-commit hooks use that
-form. Run `pre-commit install` manually inside the shell to enable hooks. Use
+Git checkout, `nix develop` is equivalent; the pre-commit hooks use that form.
+Run `pre-commit install` manually inside the shell to enable hooks. Use
 CSharpier `format` and Prettier `--write` when fixing formatting.
 
 Default game location: `~/.local/share/Steam/steamapps/common/Sailwind`.
@@ -55,12 +54,11 @@ Close Sailwind, then run from the repository root:
 ./scripts/install-local.sh "/path/to/Sailwind"
 ```
 
-The optional argument selects another game installation. Like MoreSailwindSails'
-installer, this script requires an existing Release DLL and BepInEx plugins
-directory, rebuilds Release, then installs only the DLL into
-`BepInEx/plugins/SaveShipConfiguration/`. It resolves the repository location
-independently of the calling directory and forwards the selected game directory
-to the build as `SailwindDir`.
+The optional argument selects another game installation. The script requires an
+existing Release DLL and BepInEx plugins directory, rebuilds Release, then
+installs only the DLL into `BepInEx/plugins/SaveShipConfiguration/`. It resolves
+the repository location independently of the calling directory and forwards the
+selected game directory to the build as `SailwindDir`.
 
 This is a manual maintainer workflow. Agents must never execute files from
 `scripts/` or use it as their working directory. Script validation is limited to
@@ -92,9 +90,10 @@ syntax and static review; installation has not been exercised in-game.
   repeated preset loads, cancellation, and discharge without changing SE or game
   files.
 - The full native mast-array length is covered during cancellation, including
-  MoreSailwindSails' extended stay indices. Parts are identified by an ordered
-  fingerprint; this intentionally rejects presets after layout changes rather
-  than guessing a migration.
+  indices added by mods. Registered parts and prefabs are discovered at runtime
+  without a dependency on a specific content mod. Parts are identified by an
+  ordered fingerprint; this intentionally rejects presets after layout changes
+  rather than guessing a migration.
 - The IMGUI panel blocks the native mouse pointer, held shipyard buttons, sail
   sizing hotkeys, and boat camera input while hovered, naming, or loading.
   Loading errors attempt to return to the original installed baseline and report
@@ -105,9 +104,7 @@ syntax and static review; installation has not been exercised in-game.
 Implementation checks (2026-10-15): Release build passed with zero warnings and
 errors; 22 logic checks and 33 installed-assembly checks passed, including the
 installed Shipyard Expansion adapter. CSharpier and Prettier checks passed; Ruff
-found no Python files. AGENTS.md and flake.lock match MoreSailwindSails byte for
-byte. Git status/diff checks are unavailable because this workspace's `.git`
-directory does not contain usable repository metadata.
+found no Python files. Git diff checks are available in the current checkout.
 
 Automated checks do not establish rendering, input isolation, sail
 initialization, collision timing, or successful native purchase/cancellation
@@ -126,8 +123,8 @@ Manual acceptance checklist:
 4. Cancel and discharge without purchase; verify all original parts, sails,
    colors, and SE rotation/flip/textures return. Confirm an order, save/reload
    the game, then cancel another preset to check the newly confirmed baseline.
-5. Exercise MoreSailwindSails flying sails and staysails on extended mast
-   indices, with and without SE. Test an empty rig and a boat with no presets.
+5. Exercise mod-added parts and prefabs on extended mast indices, with and
+   without SE. Test an empty rig and a boat with no presets.
 6. Type digits in a name, drag/scroll the panel, replace a duplicate name, and
    click over underlying native/SE buttons. No shipyard edit should leak
    through.

@@ -11,10 +11,6 @@ namespace SaveShipConfiguration
 {
     [BepInPlugin(PluginGuid, PluginName, PluginVersion)]
     [BepInDependency(ExpansionAdapter.Guid, BepInDependency.DependencyFlags.SoftDependency)]
-    [BepInDependency(
-        "com.august.moresailwindsails",
-        BepInDependency.DependencyFlags.SoftDependency
-    )]
     public sealed class Plugin : BaseUnityPlugin
     {
         public const string PluginGuid = "com.august.saveshipconfiguration";

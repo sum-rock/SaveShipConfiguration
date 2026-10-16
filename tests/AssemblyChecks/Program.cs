@@ -41,10 +41,8 @@ internal static class Program
             Path.Combine(AppContext.BaseDirectory, "SaveShipConfiguration.dll")
         );
         Check(
-            !plugin
-                .GetReferencedAssemblies()
-                .Any(a => a.Name == "ShipyardExpansion" || a.Name == "MoreSailwindSails"),
-            "optional mods must not be hard references"
+            !plugin.GetReferencedAssemblies().Any(a => a.Name == "ShipyardExpansion"),
+            "optional Shipyard Expansion integration must not be a hard reference"
         );
         var identity = plugin.GetType("SaveShipConfiguration.Plugin", throwOnError: true);
         Check(

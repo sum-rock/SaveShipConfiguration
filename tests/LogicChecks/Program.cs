@@ -123,9 +123,9 @@ internal static class Program
                 new SailPreset
                 {
                     PrefabIndex = 401,
-                    PrefabName = "fisherman",
+                    PrefabName = "custom-sail",
                     MastIndex = 128,
-                    MastName = "stay",
+                    MastName = "extended-mast",
                     Height = 12.5f,
                     ScaleY = 0.8f,
                     ScaleZ = 1.3f,

@@ -2,7 +2,7 @@
 
 A bare-bones Sailwind shipyard preset mod for repeated QA setups. Version 0.1.0.
 Requires BepInEx 5; built against the locally installed Sailwind 0.39
-assemblies. MoreSailwindSails and Shipyard Expansion are optional.
+assemblies. Shipyard Expansion is optional.
 
 1. Visit a shipyard and configure your boat, including any pending changes.
 2. Click **Save** in the draggable **Ship configurations** window, enter a name,
