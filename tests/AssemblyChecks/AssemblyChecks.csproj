@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <SailwindDir Condition="'$(SailwindDir)' == ''"
+      >$(HOME)/.local/share/Steam/steamapps/common/Sailwind</SailwindDir>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../src/SaveShipConfiguration.csproj" />
+    <Reference Include="0Harmony">
+      <HintPath>$(SailwindDir)/BepInEx/core/0Harmony.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+</Project>

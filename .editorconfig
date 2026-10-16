@@ -1,0 +1,6 @@
+root = true
+
+# Harmony invokes attributed callbacks through reflection rather than direct calls.
+# Keep unused-private-member diagnostics enabled outside source patch folders.
+[src/**/Patches/*.cs]
+dotnet_diagnostic.IDE0051.severity = none

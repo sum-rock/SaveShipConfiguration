@@ -1,0 +1,32 @@
+minimum_pre_commit_version: '4.4.0'
+default_stages: [pre-commit]
+fail_fast: true
+exclude: '(^|/)(bin|obj)/'
+
+repos:
+  - repo: local
+    hooks:
+      - id: dotnet-tool-restore
+        name: Restore pinned .NET tools
+        entry: nix develop -c dotnet tool restore
+        language: unsupported
+        files: '\.(cs|csx|csproj|props|targets|xml|config)$|^\.config/dotnet-tools\.json$'
+        pass_filenames: false
+      - id: csharpier
+        name: CSharpier
+        entry: nix develop -c dotnet tool run csharpier format
+        language: unsupported
+        files: '\.(cs|csx|csproj|props|targets|xml|config)$'
+        require_serial: true
+      - id: prettier-markdown
+        name: Prettier (Markdown)
+        entry: nix develop -c prettier --write
+        language: unsupported
+        files: '\.md$'
+        require_serial: true
+      - id: ruff-format
+        name: Ruff (Python formatting)
+        entry: nix develop -c ruff format
+        language: unsupported
+        types_or: [python, pyi]
+        require_serial: true
